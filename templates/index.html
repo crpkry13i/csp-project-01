@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Page</title>
+</head>
+<body>
+  <h1>Welcome to Rylei Nathaniel's Music Catalog!</h1>
+  <div class="container">
+    <ul>
+      {% if 'user_id' not in session %}
+        <p class="lead">Register or Login to Gain Access</p>
+        <li><a href="/register">Register</a></li>
+        <li><a href="/login">Login</a></li>
+      {% endif %}
+      {% if 'user_id' in session %}
+        <p class="lead">You're currently logged in!</p>
+        <li><a href="/ryleinathaniel">Continue to Music</a></li>
+        <li><a href="/logout">Logout</a></li>
+      {% endif %}
+    </ul>
+  </div>
+</body>
+</html>
+
+
+

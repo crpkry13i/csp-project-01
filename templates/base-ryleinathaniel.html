@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+  <title>Music</title>
+</head>
+<body style="background-color: black;">
+  {% if 'user_id' in session %}
+    <a href="/logout">Logout</a>
+  {% endif %}
+<h1 style="color: rgb(74, 74, 131)" class= "text text-center">Rylei Nathaniel Music List</h1>
+  {% block content %}
+<div class="container-fluid">
+  <div class="row row-cols-1 row-cols-md-4 g-2">
+    <div class="col">
+      <div class="card">
+        <img src="{{album.images[1].url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{album.name}}</h5>
+          <p class="card-text text-center">{{album.release_date}}<br>
+          <a href="{{album.external_urls['spotify']}}" class="btn btn-primary">Listen Here</a></p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <img src="{{album2.images[1].url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{album2.name}}</h5>
+          <p class="card-text text-center">{{album2.release_date}}<br>
+            <a href="{{album2.external_urls['spotify']}}" class="btn btn-primary">Listen Here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <img src="{{album3.images[1].url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{album3.name}}</h5>
+          <p class="card-text text-center">{{album3.release_date}}<br>
+            <a href="{{album3.external_urls['spotify']}}" class="btn btn-primary">Listen Here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col">
+      <div class="card">
+        <img src="{{album4.images[1].url}}" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title text-center">{{album4.name}}</h5>
+          <p class="card-text text-center">{{album4.release_date}}<br>
+            <a href="{{album4.external_urls['spotify']}}" class="btn btn-primary">Listen Here</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="text-center m-5">
+  <a href="/ryleinathaniel?page={{page-1}}" class="btn btn-primary">Previous</a>
+  <a href="/ryleinathaniel?page={{page+1}}" class="btn btn-primary">Next</a>
+</div>
+{% endblock %}
+</body>
+</html>
