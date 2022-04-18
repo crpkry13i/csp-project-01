@@ -117,7 +117,7 @@ def logout():
 @app.route('/ryleinathaniel')
 def ryleinathaniel():
     if "user_id" not in session:
-        flash("You must be logged in", "danger")
+        flash("You must be logged in first")
         return redirect("/login")
     if (request.args.get('page')):
         page = int(request.args.get('page'))
