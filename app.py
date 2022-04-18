@@ -73,9 +73,9 @@ def register():
 
             session["user_id"] = user.id
 
-        except IntegrityError as e:
-            flash("Username already taken", "danger")
-            return render_template('register.html', form=form)
+        except IntegrityError:
+            flash("Username already taken")
+            return render_template("register.html", form=form)
 
         flash(f"Welcome, {user.username}!")
 
