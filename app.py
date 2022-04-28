@@ -1,13 +1,18 @@
+from forms import RegisterForm, LoginForm
+from secret import client_id, client_secret
+from models import db, connect_db, User
+import asyncio
+import tekore as tk
+from sqlalchemy.exc import IntegrityError
+from flask_debugtoolbar import DebugToolbarExtension
+from flask import Flask, request, render_template, redirect, flash, session, jsonify
 import os
 import re
-from flask import Flask, request, render_template, redirect, flash, session, jsonify
-from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy.exc import IntegrityError
-import tekore as tk
-import asyncio
-from models import db, connect_db, User
-from secret import client_id, client_secret
-from forms import RegisterForm, LoginForm
+
+uri = os.getenv("DATABASE_URL")  # or other relevant config var
+if uri.startswith("postgres://"):
+    uri = uri.replace("postgres://", "postgresql://", 1)
+# rest of connection code using the connection string `uri`
 
 
 app = Flask(__name__)
@@ -20,11 +25,6 @@ app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secretbackup')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
-
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
-if uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-# rest of connection code using the connection string `uri`
 
 
 BASE_API = "https://api.spotify.com"
