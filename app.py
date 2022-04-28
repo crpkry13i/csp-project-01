@@ -12,19 +12,18 @@ from forms import RegisterForm, LoginForm
 
 app = Flask(__name__)
 
+uri = os.getenv('DATABASE_URL')  # or other relevant config var
+if uri and uri.startswith('postgres://'):
+    uri = uri.replace('postgres://', 'postgresql://', 1)
+# rest of connection code using the connection string `uri`
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
-    'DATABASE_URL', 'postgresql:///users_db')
+    uri, 'postgresql:///users_db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = False
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secretbackup')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
-
-# uri = os.getenv("DATABASE_URL")  # or other relevant config var
-# if uri and uri.startswith("postgres://"):
-#     uri = uri.replace("postgres://", "postgresql://", 1)
-# # rest of connection code using the connection string `uri`
 
 
 BASE_API = "https://api.spotify.com"
