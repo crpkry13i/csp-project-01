@@ -4,6 +4,7 @@ from models import db, connect_db, User
 import asyncio
 import tekore as tk
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.engine import CreateEnginePlugin
 from flask_debugtoolbar import DebugToolbarExtension
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
 import os
@@ -14,7 +15,7 @@ if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 # rest of connection code using the connection string `uri`
 
-engine = create_engine(uri, echo=True)
+engine = CreateEnginePlugin(uri, echo=True)
 
 
 app = Flask(__name__)
