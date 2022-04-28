@@ -10,16 +10,15 @@ from flask import Flask, request, render_template, redirect, flash, session, jso
 import os
 import re
 
+
+app = Flask(__name__)
+
 uri = os.getenv("DATABASE_URL")  # or other relevant config var
 if uri.startswith("postgres://"):
     uri = uri.replace("postgres://", "postgresql://", 1)
 # rest of connection code using the connection string `uri`
 
 engine = CreateEnginePlugin(uri, True)
-
-
-app = Flask(__name__)
-
 
 app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get(
     'DATABASE_URL', 'postgresql:///users_db')
