@@ -2,4 +2,4 @@ __pycache__/
 venv/
 .cache
 workspace.code-workspace
-secret.py
+# secret.py
