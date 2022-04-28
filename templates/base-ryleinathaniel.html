@@ -9,16 +9,17 @@
   <title>Music Catalog</title>
 </head>
 <body style="background-color: black;">
+
   {% for msg in get_flashed_messages() %}
     <p style="color: white;">{{msg}}</p>
   {% endfor %}
+  
   {% if 'user_id' in session %}
     <a href="/logout">Logout</a>
   {% endif %}
 
-  <h1 style="color: rgb(74, 74, 131)" class= "text text-center">Rylei Nathaniel's Music Catalog</h1>
-
   {% block content %}
+  <h1 style="color: rgb(74, 74, 131)" class= "text text-center">Rylei Nathaniel's Music Catalog</h1>
   <div class="container-fluid">
     <div class="row row-cols-1 row-cols-md-4 g-2">
       <div class="col">
@@ -67,13 +68,12 @@
     </div>
   </div>
   <div class="text-center m-5">
-    {% if page == 1 %}
-      <p>Clicking the Previous button on this page will break app (WIP)</p>
-    {% elif page == 8 %}
-      <p>Clicking the Next button on this page will break app (WIP)</p>
-    {% endif %}
+    {% if page != 1 %}
     <a href="/ryleinathaniel?page={{page-1}}" class="btn btn-primary">Previous</a>
+    {% endif %}
+    {% if page != 8 %}
     <a href="/ryleinathaniel?page={{page+1}}" class="btn btn-primary">Next</a>
+    {% endif %}
   </div>
   {% endblock %}
 </body>

@@ -16,10 +16,9 @@
       {% for msg in get_flashed_messages() %}
         <p>{{msg}}</p>
       {% endfor %}
-      
+
       <form method="POST" id="user_form">
         {{ form.hidden_tag() }}
-
         {% for field in form if field.widget.input_type != 'hidden' %}
           {% for error in field.errors %}
             <span class="text-danger">{{ error }}</span>
