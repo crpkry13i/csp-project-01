@@ -2,7 +2,7 @@ import os
 import re
 from flask import Flask, request, render_template, redirect, flash, session, jsonify
 from flask_debugtoolbar import DebugToolbarExtension
-from sqlalchemy.exc import IntegrityError
+# from sqlalchemy.exc import IntegrityError
 import tekore as tk
 import asyncio
 from models import db, connect_db, User
@@ -21,10 +21,10 @@ app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'secretbackup')
 app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 debug = DebugToolbarExtension(app)
 
-uri = os.getenv("DATABASE_URL")  # or other relevant config var
-if uri and uri.startswith("postgres://"):
-    uri = uri.replace("postgres://", "postgresql://", 1)
-# rest of connection code using the connection string `uri`
+# uri = os.getenv("DATABASE_URL")  # or other relevant config var
+# if uri and uri.startswith("postgres://"):
+#     uri = uri.replace("postgres://", "postgresql://", 1)
+# # rest of connection code using the connection string `uri`
 
 
 BASE_API = "https://api.spotify.com"
@@ -68,25 +68,21 @@ def register():
     """
 
     form = RegisterForm()
+
     if form.validate_on_submit():
-        try:
-            username = form.username.data
-            password = form.password.data
+        username = form.username.data
+        password = form.password.data
 
-            user = User.register(username, password)
-            db.session.add(user)
-            db.session.commit()
+        user = User.register(username, password)
+        db.session.add(user)
+        db.session.commit()
 
-            session["user_id"] = user.id
-
-        except IntegrityError:
-            flash("Username already taken")
-            return render_template("register.html", form=form)
+        session["user_id"] = user.id
 
         flash(f"Welcome, {user.username}!")
-
         return redirect("/ryleinathaniel")
     else:
+        flash("Username already taken, please try again.")
         return render_template("register.html", form=form)
 
 
